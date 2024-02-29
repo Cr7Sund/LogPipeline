@@ -14,13 +14,19 @@ namespace Cr7Sund.Logger
 
         private static Color32 GetLocalColor(string key, Color32 defaultColor)
         {
+#if UNITY_EDITOR
+
             string str = EditorPrefs.GetString(key, string.Empty);
             if (!string.IsNullOrEmpty(str))
                 return JsonUtility.FromJson<Color32>(str);
             return defaultColor;
+#else
+            return Color.white;
+#endif
+
         }
 
- 
+
         public static string FormatMessage(LogLevel logLevel, string message)
         {
             Color32 color;

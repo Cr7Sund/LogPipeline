@@ -1,4 +1,3 @@
-#if UNITY_EDITOR
 namespace Cr7Sund.Logger
 {
     // public class LogPalette
@@ -22,4 +21,3 @@ namespace Cr7Sund.Logger
 
     }
 }
-#endif

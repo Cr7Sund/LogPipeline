@@ -1,0 +1,23 @@
+{
+    "name": "Cr7Sund.Logger",
+    "rootNamespace": "",
+    "references": [
+        "GUID:8115196194fe8c24d9712ae8127af0f9"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "Serilog.dll",
+        "Serilog.Sinks.PeriodicBatching.dll",
+        "Serilog.Sinks.File.dll",
+        "ZstdNet.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

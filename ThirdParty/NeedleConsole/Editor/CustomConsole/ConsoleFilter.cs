@@ -255,7 +255,7 @@ namespace Needle.Console
 						else
 						{
 							entry = new LogEntry();
-							LogEntries.GetEntryInternal(i, entry);
+							LogEntriesExtension.GetStripEntry(i, entry);
 							logEntries.Add(entry);
 						}
 					}

@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using Unity.CodeEditor;
 using UnityEditor;
 using UnityEngine;
 
@@ -10,7 +11,7 @@ namespace Needle.Console
 		{
 			return ConsoleList.HasMode(entry.mode, ConsoleWindow.Mode.ScriptCompileError | ConsoleWindow.Mode.GraphCompileError);
 		}
-		
+
 		internal static bool TryPingFile(string file)
 		{
 			if (!string.IsNullOrEmpty(file) && File.Exists(file) && TryMakeProjectRelative(file, out file))
@@ -21,7 +22,17 @@ namespace Needle.Console
 			}
 			return false;
 		}
-		
+
+		internal static bool TryOpenProject(string script, int line)
+		{
+			if (!string.IsNullOrEmpty(script) && File.Exists(script) && TryMakeProjectRelative(script, out script))
+			{
+				CodeEditor.Editor.CurrentCodeEditor.OpenProject(script, line);
+				return true;
+			}
+			return false;
+		}
+
 		internal static bool TryMakeProjectRelative(string path, out string result)
 		{
 			var fp = Path.GetFullPath(path);

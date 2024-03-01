@@ -450,7 +450,12 @@ namespace Needle.Console
 
 			if (rowDoubleClicked >= 0)
 			{
-				LogEntries.RowGotDoubleClicked(rowDoubleClicked);
+				// LogEntries.RowGotDoubleClicked(rowDoubleClicked);
+				var current = currentEntries[SelectedRowIndex];
+				var file = current.entry.file;
+				var line = current.entry.line;
+				ConsoleUtils.TryOpenProject(file, line);
+
 				rowDoubleClicked = -1;
 				previouslySelectedRowIndex = -1;
 			}

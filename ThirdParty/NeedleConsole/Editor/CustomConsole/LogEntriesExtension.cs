@@ -32,6 +32,7 @@ namespace Needle.Console
                 }, StringSplitOptions.None);
                 var sb = new StringBuilder();
                 bool startLog = true;
+
                 for (int i = 0; i < lines.Length - 1; i++)
                 {
                     if (startLog && lines[i + 1].StartsWith("void Serilog.Core.Sinks.SafeAggregateSink.Emit(LogEvent"))
@@ -41,7 +42,7 @@ namespace Needle.Console
                     }
                     if (!startLog)
                     {
-                        if (lines[i].StartsWith("void Cr7Sund.Logger.Logger.Log"))
+                        if (lines[i].StartsWith("void Cr7Sund.Logger.LoggerProxy.Log"))
                         {
                             startLog = true;
                             i += 2;

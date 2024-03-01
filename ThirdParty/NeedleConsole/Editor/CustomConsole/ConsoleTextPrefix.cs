@@ -61,7 +61,7 @@ namespace Needle.Console
 					return;
 				}
 
-				if (!LogEntries.GetEntryInternal(element.row, tempEntry))
+				if (!LogEntriesExtension.GetStripEntry(element.row, tempEntry))
 				{
 					return;
 				}

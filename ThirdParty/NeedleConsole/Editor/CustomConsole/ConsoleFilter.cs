@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.Profiling;
 using UnityEditor;
+using UnityEngine;
 using Object = UnityEngine.Object;
 
 namespace Needle.Console
@@ -82,8 +83,8 @@ namespace Needle.Console
 		internal static event Action ClearingCachedData;
 		internal delegate bool AddEntryData(LogEntry entry, int row, string preview, List<CachedConsoleInfo> entries);
 		internal static AddEntryData CustomAddEntry;
-
-
+		
+		
 		[InitializeOnLoadMethod]
 		private static void Init()
 		{
@@ -190,7 +191,7 @@ namespace Needle.Console
 		}
 
 		private static int _prevCount, _lastFlags, _lastLineCount;
-
+		
 		internal static bool HasAnyFilterSolo { get; private set; }
 
 		internal static bool IsDirty => isDirty;
@@ -198,7 +199,7 @@ namespace Needle.Console
 		{
 			if (_prevCount != logCount) return true;
 			if (_lastLineCount != ConsoleWindow.Constants.LogStyleLineCount) return true;
-			if (LogEntries.consoleFlags != _lastFlags)
+			if (LogEntries.consoleFlags != _lastFlags) 
 			{
 				return true;
 			}
@@ -254,7 +255,7 @@ namespace Needle.Console
 						else
 						{
 							entry = new LogEntry();
-							LogEntriesExtension.GetStripEntry(i, entry);
+							LogEntries.GetEntryInternal(i, entry);
 							logEntries.Add(entry);
 						}
 					}
@@ -294,7 +295,7 @@ namespace Needle.Console
 					// else if(enabled)
 					var info = new LogEntryInfo(entry);
 					var skip = false;
-
+					
 					if (allowFilter)
 					{
 						for (var index = 0; index < registeredFilters.Count; index++)
@@ -366,5 +367,6 @@ namespace Needle.Console
 		}
 
 
+		
 	}
 }

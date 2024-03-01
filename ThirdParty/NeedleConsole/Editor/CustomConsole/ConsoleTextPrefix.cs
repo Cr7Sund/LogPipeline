@@ -61,15 +61,15 @@ namespace Needle.Console
 					return;
 				}
 
-				if (!LogEntriesExtension.GetStripEntry(element.row, tempEntry))
+				if (!LogEntries.GetEntryInternal(element.row, tempEntry))
 				{
 					return;
 				}
 				keyBuilder.Clear();
 				keyBuilder.Append(tempEntry.file).Append(tempEntry.line).Append(tempEntry.column).Append(tempEntry.mode);
-
+				
 #if UNITY_2021_2_OR_NEWER
-				if (string.IsNullOrWhiteSpace(tempEntry.file))
+				if(string.IsNullOrWhiteSpace(tempEntry.file))
 					keyBuilder.Append(tempEntry.identifier).Append(tempEntry.globalLineIndex);
 #else
 				if (tempEntry.file == "" && tempEntry.line == 0 && tempEntry.column == -1)
@@ -77,7 +77,7 @@ namespace Needle.Console
 					keyBuilder.Append(element.row);
 				}
 #endif
-
+				
 				var key = keyBuilder.Append(text).ToString();
 				var isSelected = ConsoleList.IsSelectedRow(element.row);
 				var cacheEntry = !isSelected;
@@ -115,7 +115,7 @@ namespace Needle.Console
 							keyBuilder.Append(tempEntry.file).Append(tempEntry.line).Append(tempEntry.column).Append(tempEntry.mode);
 							keyBuilder.Append(tempEntry.message);
 #if UNITY_2021_2_OR_NEWER
-							if (string.IsNullOrWhiteSpace(tempEntry.file))
+							if(string.IsNullOrWhiteSpace(tempEntry.file))
 								keyBuilder.Append(tempEntry.identifier).Append(tempEntry.globalLineIndex);
 #else
 							if (tempEntry.file == "" && tempEntry.line == 0 && tempEntry.column == -1)
@@ -220,10 +220,10 @@ namespace Needle.Console
 		private static void RemoveFilePathInCompilerErrorMessages(ref string str)
 		{
 			const ConsoleWindow.Mode modestoRemovePath = ConsoleWindow.Mode.ScriptCompileError
-													 | ConsoleWindow.Mode.GraphCompileError
-													 | ConsoleWindow.Mode.ScriptingWarning
-													 | ConsoleWindow.Mode.ScriptCompileWarning
-													 | ConsoleWindow.Mode.AssetImportWarning
+			                                         | ConsoleWindow.Mode.GraphCompileError
+			                                         | ConsoleWindow.Mode.ScriptingWarning
+			                                         | ConsoleWindow.Mode.ScriptCompileWarning 
+			                                         | ConsoleWindow.Mode.AssetImportWarning
 				;
 
 			if (ConsoleList.HasMode(tempEntry.mode, modestoRemovePath))

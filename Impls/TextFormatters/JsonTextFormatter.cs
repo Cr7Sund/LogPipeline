@@ -13,8 +13,6 @@ namespace Cr7Sund.Logger
     /// </summary>
     public partial class JsonTextFormatter : ITextFormatter
     {
-        private static readonly string SourceContextPropertyName = "SourceContext";
-        private static readonly string ThreadIdPropertyName = "ThreadId";
 
         /// <summary>
         /// Format the log event into the output.

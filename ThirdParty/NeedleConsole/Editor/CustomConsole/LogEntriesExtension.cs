@@ -50,6 +50,10 @@ namespace Needle.Console
                             {
                                 i += 1;
                             }
+                            if (lines[i].StartsWith("void Cr7Sund.Selector.Impl.EntranceConsole"))
+                            {
+                                i += 1;
+                            }
 
                             string filePath = _filePathRegex.Match(lines[i]).Groups["FilePath"].Value;
                             int fileLine = Convert.ToInt32(_fileLineRegex.Match(lines[i]).Groups[1].Value);

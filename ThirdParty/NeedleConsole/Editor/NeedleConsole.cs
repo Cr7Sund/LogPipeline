@@ -16,7 +16,7 @@ namespace Needle.Console
 		{
 			SettingsService.OpenUserPreferences("Preferences/Needle/Console");
 		}
-		
+
 		[InitializeOnLoadMethod]
 		private static void Init()
 		{
@@ -69,6 +69,14 @@ namespace Needle.Console
 			Patcher.ApplyPatches();
 		}
 
+		[InitializeOnEnterPlayMode]
+		public static void DomainReload()
+		{
+			if (NeedleConsoleSettings.instance.Enabled)
+			{
+				Patcher.ApplyPatches();
+			}
+		}
 		public static void Disable()
 		{
 			NeedleConsoleSettings.instance.Enabled = false;
@@ -85,8 +93,8 @@ namespace Needle.Console
 			{
 				using (new ProfilerMarker("Demystify.Apply").Auto())
 				{
-					if(Profiler.enabled) return;
-					
+					if (Profiler.enabled) return;
+
 					string[] lines = null;
 					using (new ProfilerMarker("Split Lines").Auto())
 						lines = stacktrace.Split('\n');
@@ -143,7 +151,7 @@ namespace Needle.Console
 				}
 			}
 			catch
-				// (Exception e)
+			// (Exception e)
 			{
 				// ignore
 			}

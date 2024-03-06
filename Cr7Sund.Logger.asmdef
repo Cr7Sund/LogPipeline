@@ -1,9 +1,7 @@
 {
     "name": "Cr7Sund.Logger",
     "rootNamespace": "",
-    "references": [
-        "GUID:8115196194fe8c24d9712ae8127af0f9"
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

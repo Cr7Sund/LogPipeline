@@ -1,5 +1,4 @@
-﻿using LitJson;
-using System;
+﻿using System;
 using System.Text;
 using System.Threading;
 namespace Cr7Sund.Logger

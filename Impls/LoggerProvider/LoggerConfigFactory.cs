@@ -1,6 +1,4 @@
 using Serilog;
-using UnityEngine.Profiling;
-using Cr7Sund.Logger;
 
 #if ELASTIC_SEARCH
 using Serilog.Sinks.Elasticsearch;
@@ -29,7 +27,6 @@ namespace Cr7Sund.Logger
         private static LoggerConfiguration EditorConfig(LogSinkType logSinkType, string logChannel)
         {
             Serilog.Debugging.SelfLog.Enable(msg => UnityEngine.Debug.LogError(msg));
-            Profiler.enableAllocationCallstacks = true;
 
             var loggerConfiguration = new LoggerConfiguration();
             loggerConfiguration.MinimumLevel.Verbose();
@@ -70,8 +67,6 @@ namespace Cr7Sund.Logger
 
         private static LoggerConfiguration FinalReleaseConfig(LogSinkType logSinkType, string logChannel)
         {
-            Profiler.enableAllocationCallstacks = true;
-
             var loggerConfiguration = new LoggerConfiguration();
             loggerConfiguration.Enrich.WithLogChannel(logChannel);
 

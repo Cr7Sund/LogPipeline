@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Text;
+using UnityEngine;
 namespace Cr7Sund.Logger
 {
     internal class EventLogWriter : LogWriter<LogEventData>
@@ -17,19 +19,21 @@ namespace Cr7Sund.Logger
 
         protected override string Formatting(string level, string id, LogEventData obj)
         {
-            jsonData.Clear();
-            jsonData["event_time"] = DateTime.UtcNow.AddHours(8).ToString("yyyy-MM-ddTHH:mm:ss.fffzzzz");
-            jsonData["event_type"] = level;
-            jsonData["event_id"] = id;
+            var sb = new StringBuilder();
 
             string preKey = string.Format("extra.{0}.{1}", level, id);
 
             foreach (var current in obj.info)
             {
                 string key = string.Format("{0}.{1}", preKey, current.Key);
-                jsonData[key] = current.Value;
+                sb.AppendLine(key);
             }
-            return jsonData.ToJson();
+            jsonData.log_time = DateTime.UtcNow.AddHours(8).ToString("yyyy-MM-ddTHH:mm:ss.fffzzzz");
+            jsonData.log_level = level;
+            jsonData.log_info = sb.ToString();
+
+            string output = JsonUtility.ToJson(jsonData);
+            return output;
         }
     }
 }

@@ -8,7 +8,7 @@ using Serilog.Sinks.Elasticsearch;
 
 namespace Cr7Sund.Logger
 {
-    public class LoggerConfigFactory
+    public class SerilogLoggerConfigFactory
     {
         private const string OutputTemplate = "{Timestamp:HH:mm:ss} [{LogChannel}] [{Level:u3}] {Message:lj}{NewLine}{Exception}";
 

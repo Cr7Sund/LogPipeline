@@ -15,7 +15,7 @@ namespace Cr7Sund.Logger
 
         public virtual void Init(LogSinkType logSinkType, string logChannel)
         {
-            LoggerConfiguration loggerConfiguration = LoggerConfigFactory.Create(logSinkType, logChannel);
+            LoggerConfiguration loggerConfiguration = SerilogLoggerConfigFactory.Create(logSinkType, logChannel);
             _logger = loggerConfiguration.CreateLogger();
         }
 

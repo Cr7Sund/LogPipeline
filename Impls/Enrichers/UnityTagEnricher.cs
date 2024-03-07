@@ -5,7 +5,7 @@ namespace Cr7Sund.Logger
 {
     public sealed class UnityTagEnricher : ILogEventEnricher
     {
-        public const string UnityTagKey = "%_DO_NOT_USE_UNITY_TAG_DO_NOT_USE%";
+        public const string UnityTagKey = "custom.UNITY_LOG_TAG";
 
         private readonly LogEventProperty _property;
 

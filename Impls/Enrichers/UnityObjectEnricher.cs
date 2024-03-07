@@ -5,7 +5,7 @@ namespace Cr7Sund.Logger
 {
     public sealed class UnityObjectEnricher : ILogEventEnricher
     {
-        public const string UnityContextKey = "%_DO_NOT_USE_UNITY_ID_DO_NOT_USE%";
+        public const string UnityContextKey = "custom.UNITY_OBJECT_CONTEXT";
 
         private readonly LogEventProperty _property;
 

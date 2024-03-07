@@ -20,6 +20,6 @@
         File,
         DB,
         Net,
-        ELK,
+        LogPlatform,
     }
 }

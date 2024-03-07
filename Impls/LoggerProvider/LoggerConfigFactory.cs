@@ -1,3 +1,4 @@
+using System;
 using Serilog;
 
 #if ELASTIC_SEARCH
@@ -39,13 +40,15 @@ namespace Cr7Sund.Logger
             }
             if ((logSinkType & LogSinkType.File) == LogSinkType.File)
             {
-                loggerConfiguration = loggerConfiguration.WriteTo.File("logs/log.txt",
-                                   outputTemplate: OutputTemplate,
-                                   shared: true,
+                loggerConfiguration.WriteTo.File(
+                                    new Serilog.Formatting.Elasticsearch.ElasticsearchJsonFormatter(renderMessageTemplate: true),
+                                    "logs / log.txt",
+                                    shared: true,
                                     fileSizeLimitBytes: 524288000,
                                     rollingInterval: RollingInterval.Day,
                                     retainedFileCountLimit: 2,
                                     rollOnFileSizeLimit: true);
+
             }
             if ((logSinkType & LogSinkType.Net) == LogSinkType.Net)
             {
@@ -53,7 +56,7 @@ namespace Cr7Sund.Logger
                             System.Net.Sockets.AddressFamily.InterNetwork, enableBroadcast: true,
                             outputTemplate: OutputTemplate);
             }
-            if ((logSinkType & LogSinkType.ELK) == LogSinkType.ELK)
+            if ((logSinkType & LogSinkType.LogPlatform) == LogSinkType.LogPlatform)
             {
 #if ELASTIC_SEARCH
                 loggerConfiguration = loggerConfiguration.WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri("http://localhost:9200")));

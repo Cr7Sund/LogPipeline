@@ -7,11 +7,20 @@ namespace Cr7Sund.Sample
         public Logger.ILogProvider _logProvider;
         private LogLevel _miniumLogLevel;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="logChannel">each log's custom channel</param>
         public SampleLoggerProxy(string logChannel)
         {
             var logProvider = Logger.LogProviderFactory.Create();
-            logProvider.Init(LogSinkType.File | LogSinkType.Net | LogSinkType.LogPlatform, logChannel);
             _logProvider = logProvider;
+
+
+            // choose your output device
+            logProvider.Init(LogSinkType.File | LogSinkType.Net | LogSinkType.LogPlatform, logChannel);
+            // the minimum default on log level
+            _miniumLogLevel = LogLevel.Trace;
         }
 
         public void Dispose()

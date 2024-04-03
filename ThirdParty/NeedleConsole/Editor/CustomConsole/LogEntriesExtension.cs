@@ -42,7 +42,7 @@ namespace Needle.Console
                     }
                     if (!startLog)
                     {
-                        if (lines[i].StartsWith("void Cr7Sund.Logger.LoggerProxy.Log"))
+                        if (lines[i].StartsWith("void Cr7Sund.LoggerProxy.Log"))
                         {
                             startLog = true;
                             i += 2;

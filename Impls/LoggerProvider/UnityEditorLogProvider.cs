@@ -1,45 +1,47 @@
 
 using System;
+using System.Collections.Generic;
 
 namespace Cr7Sund.Logger
 {
     public class UnityEditorLogProvider : ILogProvider, IDisposable
     {
-        private ILogDecorator _logDecorator;
+        private List<ILogDecorator> _logDecorators = new();
         private string _logChannel;
-        private static ILogDecorator _logAppender;
-        private static ILogDecorator LogAppender
-        {
-            get
-            {
-                // Lazy initialization of log decorator using LogDecoratorCreator.
-                return _logAppender ??= LogDecoratorCreator.Create();
-            }
-        }
+
         public void Dispose()
         {
-            _logDecorator?.Dispose();
+            for (int i = _logDecorators.Count - 1; i >= 0; i--)
+            {
+                _logDecorators[i]?.Dispose();
+            }
         }
 
         public virtual void Init(LogSinkType logSinkType, string logChannel)
         {
             _logChannel = logChannel;
 
+            if ((logSinkType & LogSinkType.Local) == LogSinkType.Local)
+            {
+                _logDecorators.Add(new UnityLogDecorator());
+            }
             if ((logSinkType & LogSinkType.Net) == LogSinkType.Net)
             {
-                _logDecorator = new RpcLogDecorator();
+                // _logDecorators.Add(new RpcLogDecorator());
             }
             if ((logSinkType & LogSinkType.File) == LogSinkType.File)
             {
-                _logDecorator = new FileLogDecorator();
+                // _logDecorators.Add(new FileLogDecorator());
+            }
+            for (int i = _logDecorators.Count - 1; i >= 0; i--)
+            {
+                _logDecorators[i]?.Initialize();
             }
         }
 
         public void WriteException(LogLevel logLevel, string prefix, Exception ex)
         {
-            var result = LogFormatUtil.ParseException(ex);
-            result = $"{prefix} \n Exception {result}";
-            WriteException(logLevel, prefix);
+            WriteException(logLevel, ex.Message);
         }
 
         public void WriteException(LogLevel logLevel, string message)
@@ -208,7 +210,7 @@ namespace Cr7Sund.Logger
         #region Debug
         private void UnityEditorDebug(string format, params object[] args)
         {
-            format = LogAppender.Format(LogLevel.Trace, _logChannel, format, args);
+            format = Format(LogLevel.Trace, _logChannel, format, args);
 
             if (args.Length <= 0)
                 UnityEngine.Debug.Log(format);
@@ -218,7 +220,7 @@ namespace Cr7Sund.Logger
 
         private void UnityEditorWarning(string format, params object[] args)
         {
-            format = LogAppender.Format(LogLevel.Trace, _logChannel, format, args);
+            format = Format(LogLevel.Trace, _logChannel, format, args);
 
             if (args.Length <= 0)
                 UnityEngine.Debug.LogWarning(format);
@@ -228,12 +230,26 @@ namespace Cr7Sund.Logger
 
         private void UnityEditorError(string format, params object[] args)
         {
-            format = LogAppender.Format(LogLevel.Trace, _logChannel, format, args);
+            format = Format(LogLevel.Trace, _logChannel, format, args);
 
             if (args.Length <= 0)
                 UnityEngine.Debug.LogError(format);
             else
                 UnityEngine.Debug.LogErrorFormat(format, args);
+        }
+
+        private string Format(LogLevel level, string logChannel, string format, params object[] args)
+        {
+            string result = string.Empty;
+            for (int i = _logDecorators.Count - 1; i >= 0; i--)
+            {
+                var formatLog = _logDecorators[i]?.Format(level, logChannel, format, args);
+                if (_logDecorators[i] is UnityLogDecorator unityLogDecorator)
+                {
+                    result = formatLog;
+                }
+            }
+            return result;
         }
         #endregion
     }

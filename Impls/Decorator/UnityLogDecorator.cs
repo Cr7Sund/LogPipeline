@@ -1,8 +1,5 @@
-﻿#if UNITY_EDITOR
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
-using UnityEditor;
 using UnityEngine;
 namespace Cr7Sund.Logger
 {
@@ -40,8 +37,15 @@ namespace Cr7Sund.Logger
         public string Format(LogLevel level, string logChannel, string format, params object[] args)
         {
             string result = LogFormatUtil.Format(format, args);
-            string logMessage = string.Format("[{0}][{1}]{2}", level, logChannel, result);
 
+#if UNITY_EDITOR
+            if (!UnityEditor.EditorApplication.isPlaying)
+            {
+                return result;
+            }
+#endif
+
+            string logMessage = string.Format("[{0}][{1}]{2}", level, logChannel, result);
             result = DecorateColor(level, logMessage);
             return result;
         }
@@ -56,9 +60,11 @@ namespace Cr7Sund.Logger
         }
         private Color32 GetLocalColor(string key, Color32 defaultColor)
         {
-            string str = EditorPrefs.GetString(key, string.Empty);
+            #if UNITY_EDITOR
+            string str = UnityEditor.EditorPrefs.GetString(key, string.Empty);
             if (!string.IsNullOrEmpty(str))
                 return JsonUtility.FromJson<Color32>(str);
+            #endif
             return defaultColor;
         }
 
@@ -99,4 +105,3 @@ namespace Cr7Sund.Logger
         }
     }
 }
-#endif

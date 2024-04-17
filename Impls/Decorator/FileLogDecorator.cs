@@ -123,9 +123,17 @@ namespace Cr7Sund.Logger
         public string Format(LogLevel level, string logChannel, string format, params object[] args)
         {
             string result = LogFormatUtil.Format(format, args);
-            Write(FileLogType.Code, level, result);
+            try
+            {
+                Write(FileLogType.Code, level, result);
+            }
+            catch (Exception ex)
+            {
+                UnityEngine.Debug.Log(ex);
+            }
             string logMessage = string.Format("[{0}][{1}]{2}", level, logChannel, result);
             return logMessage;
+
         }
         #endregion
     }

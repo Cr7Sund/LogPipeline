@@ -37,7 +37,6 @@ namespace Cr7Sund.Logger
 #else
             message = logEvent.RenderMessage();
 #endif
-
             UnityEngine.Object? unityContext = null;
             if (logEvent.Properties.TryGetValue(UnityObjectEnricher.UnityContextKey, out var contextPropertyValue) && contextPropertyValue is ScalarValue contextScalarValue)
             {

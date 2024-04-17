@@ -26,7 +26,7 @@ namespace Cr7Sund.Logger
             {
                 if (!File.Exists(path))
                 {
-                    using var fileStream = File.Create(path);
+                    using var fileStream = File.Create(path, capacity);
                     fileStream.SetLength(capacity);
                     _mmf = MemoryMappedFile.CreateFromFile(fileStream, null, capacity, MemoryMappedFileAccess.ReadWrite, HandleInheritability.None, true);
                 }

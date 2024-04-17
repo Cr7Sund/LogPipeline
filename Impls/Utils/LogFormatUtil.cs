@@ -1,5 +1,6 @@
 ﻿
 using System;
+using MessageTemplates;
 
 namespace Cr7Sund.Logger
 {
@@ -9,7 +10,7 @@ namespace Cr7Sund.Logger
         {
             if (args == null || args.Length <= 0)
                 return format;
-            return string.Format(format, args);
+            return MessageTemplate.Format(format, args);
         }
         public static string ColorFormat(string msg, UnityEngine.Color color)
         {

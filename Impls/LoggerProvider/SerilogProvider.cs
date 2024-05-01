@@ -13,87 +13,37 @@ namespace Cr7Sund.Logger
             _logger.Dispose();
         }
 
+
+
         public virtual void Init(LogSinkType logSinkType, string logChannel)
         {
             LoggerConfiguration loggerConfiguration = SerilogLoggerConfigFactory.Create(logSinkType, logChannel);
             _logger = loggerConfiguration.CreateLogger();
         }
 
-        public void WriteException<T0>(LogLevel logLevel, string prefix, Exception ex, T0 propertyValue0)
+        public void WriteException(LogLevel logLevel, Exception ex)
         {
+            string msg = ex.ToString();
+            
             switch (logLevel)
             {
                 case LogLevel.Trace:
-                    _logger.Verbose(ex, prefix, propertyValue0, propertyValue0);
+                    _logger.Verbose(msg);
                     break;
                 case LogLevel.Debug:
-                    _logger.Debug(ex, prefix, propertyValue0);
+                    _logger.Debug(msg);
                     break;
                 case LogLevel.Info:
-                    _logger.Information(ex, prefix, propertyValue0);
+                    _logger.Information(msg);
                     break;
                 case LogLevel.Warn:
-                    _logger.Warning(ex, prefix, propertyValue0);
+                    _logger.Warning(msg);
                     break;
                 case LogLevel.Error:
-                    _logger.Error(ex, prefix, propertyValue0);
+                    _logger.Error(msg);
                     break;
                 case LogLevel.Fatal:
-                    _logger.Fatal(ex, prefix, propertyValue0);
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        public void WriteException(LogLevel logLevel, string prefix, Exception ex)
-        {
-            switch (logLevel)
-            {
-                case LogLevel.Trace:
-                    _logger.Verbose(ex, prefix);
-                    break;
-                case LogLevel.Debug:
-                    _logger.Debug(ex, prefix);
-                    break;
-                case LogLevel.Info:
-                    _logger.Information(ex, prefix);
-                    break;
-                case LogLevel.Warn:
-                    _logger.Warning(ex, prefix);
-                    break;
-                case LogLevel.Error:
-                    _logger.Error(ex, prefix);
-                    break;
-                case LogLevel.Fatal:
-                    _logger.Fatal(ex, prefix);
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        public void WriteException(LogLevel logLevel, string message)
-        {
-            switch (logLevel)
-            {
-                case LogLevel.Trace:
-                    _logger.Verbose(message);
-                    break;
-                case LogLevel.Debug:
-                    _logger.Debug(message);
-                    break;
-                case LogLevel.Info:
-                    _logger.Information(message);
-                    break;
-                case LogLevel.Warn:
-                    _logger.Warning(message);
-                    break;
-                case LogLevel.Error:
-                    _logger.Error(message);
-                    break;
-                case LogLevel.Fatal:
-                    _logger.Fatal(message);
+                    _logger.Fatal(msg);
                     break;
                 default:
                     break;

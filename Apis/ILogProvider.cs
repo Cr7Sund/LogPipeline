@@ -7,8 +7,7 @@ namespace Cr7Sund.Logger
     {
         void Init(LogSinkType logSinkType, string logChannel);
 
-        void WriteException(LogLevel logLevel, string message, Exception e);
-        void WriteException<T0>(LogLevel logLevel, string message, Exception e, T0 propertyValue0);
+        void WriteException(LogLevel logLevel, Exception e);
         void WriteLine(LogLevel logLevel, string message);
         void WriteLine<T0>(LogLevel logLevel, string message, T0 propertyValue0);
         void WriteLine<T0, T1>(LogLevel logLevel, string message, T0 propertyValue0, T1 propertyValue1);

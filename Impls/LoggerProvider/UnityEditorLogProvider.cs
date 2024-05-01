@@ -39,32 +39,28 @@ namespace Cr7Sund.Logger
             }
         }
 
-        public void WriteException(LogLevel logLevel, string prefix, Exception ex)
-        {
-            WriteException(logLevel, ex.Message);
-        }
 
-        public void WriteException(LogLevel logLevel, string message)
+        public void WriteException(LogLevel logLevel, Exception ex)
         {
             switch (logLevel)
             {
                 case LogLevel.Trace:
-                    UnityEditorDebug(message);
+                    UnityEditorException(ex);
                     break;
                 case LogLevel.Debug:
-                    UnityEditorDebug(message);
+                    UnityEditorException(ex);
                     break;
                 case LogLevel.Info:
-                    UnityEditorDebug(message);
+                    UnityEditorException(ex);
                     break;
                 case LogLevel.Warn:
-                    UnityEditorWarning(message);
+                    UnityEditorException(ex);
                     break;
                 case LogLevel.Error:
-                    UnityEditorError(message);
+                    UnityEditorException(ex);
                     break;
                 case LogLevel.Fatal:
-                    UnityEditorError(message);
+                    UnityEditorException(ex);
                     break;
                 default:
                     break;
@@ -236,6 +232,12 @@ namespace Cr7Sund.Logger
                 UnityEngine.Debug.LogError(format);
             else
                 UnityEngine.Debug.LogErrorFormat(format, args);
+        }
+
+        private void UnityEditorException(Exception ex)
+        {
+            var exMsg = ex.ToString();
+            UnityEngine.Debug.LogError(exMsg);
         }
 
         private string Format(LogLevel level, string logChannel, string format, params object[] args)

@@ -24,7 +24,7 @@ namespace Cr7Sund.Logger
         public void WriteException(LogLevel logLevel, Exception ex)
         {
             string msg = ex.ToString();
-            
+
             switch (logLevel)
             {
                 case LogLevel.Trace:
@@ -44,6 +44,35 @@ namespace Cr7Sund.Logger
                     break;
                 case LogLevel.Fatal:
                     _logger.Fatal(msg);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        public void WriteException(LogLevel logLevel, Exception ex, string prefix)
+        {
+            string msg = ex.ToString();
+            string format = "{Prefix}";
+            switch (logLevel)
+            {
+                case LogLevel.Trace:
+                    _logger.Verbose(ex, format, prefix);
+                    break;
+                case LogLevel.Debug:
+                    _logger.Debug(ex, format, prefix);
+                    break;
+                case LogLevel.Info:
+                    _logger.Information(ex, format, prefix);
+                    break;
+                case LogLevel.Warn:
+                    _logger.Warning(ex, format, prefix);
+                    break;
+                case LogLevel.Error:
+                    _logger.Error(ex, format, prefix);
+                    break;
+                case LogLevel.Fatal:
+                    _logger.Fatal(ex, format, prefix);
                     break;
                 default:
                     break;

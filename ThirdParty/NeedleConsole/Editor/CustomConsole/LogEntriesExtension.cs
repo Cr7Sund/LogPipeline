@@ -35,7 +35,9 @@ namespace Needle.Console
 
                 for (int i = 0; i < lines.Length - 1; i++)
                 {
-                    if (startLog && lines[i + 1].StartsWith("void Serilog.Core.Sinks.SafeAggregateSink.Emit(LogEvent"))
+                    if (startLog &&
+                             (lines[i + 1].StartsWith("void Serilog.Core.Sinks.SafeAggregateSink.Emit(LogEvent")
+                            || lines[i + 1].StartsWith("void Cr7Sund.Logger.UnityEditorLogProvider.")))
                     {
                         sb.AppendLine("-");
                         startLog = false;

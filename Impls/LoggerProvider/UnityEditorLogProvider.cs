@@ -42,52 +42,54 @@ namespace Cr7Sund.Logger
 
         public void WriteException(LogLevel logLevel, Exception ex)
         {
+            string format = ex.ToString();
             switch (logLevel)
             {
                 case LogLevel.Trace:
-                    UnityEditorException(ex);
+                    UnityEditorDebug(format);
                     break;
                 case LogLevel.Debug:
-                    UnityEditorException(ex);
+                    UnityEditorDebug(format);
                     break;
                 case LogLevel.Info:
-                    UnityEditorException(ex);
+                    UnityEditorDebug(format);
                     break;
                 case LogLevel.Warn:
-                    UnityEditorException(ex);
+                    UnityEditorWarning(format);
                     break;
                 case LogLevel.Error:
-                    UnityEditorException(ex);
+                    UnityEditorError(format);
                     break;
                 case LogLevel.Fatal:
-                    UnityEditorException(ex);
+                    UnityEditorError(format);
                     break;
                 default:
                     break;
             }
         }
 
-        public void WriteException<T0>(LogLevel logLevel, string message, Exception e, T0 propertyValue0)
+        public void WriteException(LogLevel logLevel,  Exception e, string prefix)
         {
+            string format = $"{prefix} \n{e.ToString()}";
             switch (logLevel)
             {
                 case LogLevel.Trace:
-                    UnityEditorDebug(message, e, propertyValue0);
+                    UnityEditorDebug(format);
                     break;
                 case LogLevel.Debug:
-                    UnityEditorDebug(message, e, propertyValue0);
+                    UnityEditorDebug(format);
                     break;
                 case LogLevel.Info:
-                    UnityEditorDebug(message, e, propertyValue0);
+                    UnityEditorDebug(format);
                     break;
                 case LogLevel.Warn:
-                    UnityEditorWarning(message, e, propertyValue0);
+                    UnityEditorWarning(format);
                     break;
                 case LogLevel.Error:
-                    UnityEditorError(message, e, propertyValue0);
+                    UnityEditorError(format);
                     break;
                 case LogLevel.Fatal:
-                    UnityEditorError(message, e, propertyValue0);
+                    UnityEditorError(format);
                     break;
                 default:
                     break;
@@ -232,12 +234,6 @@ namespace Cr7Sund.Logger
                 UnityEngine.Debug.LogError(format);
             else
                 UnityEngine.Debug.LogErrorFormat(format, args);
-        }
-
-        private void UnityEditorException(Exception ex)
-        {
-            var exMsg = ex.ToString();
-            UnityEngine.Debug.LogError(exMsg);
         }
 
         private string Format(LogLevel level, string logChannel, string format, params object[] args)

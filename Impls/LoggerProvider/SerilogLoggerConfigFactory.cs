@@ -1,4 +1,3 @@
-using System;
 using Serilog;
 
 #if ELASTIC_SEARCH

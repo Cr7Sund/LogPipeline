@@ -45,8 +45,6 @@ namespace Cr7Sund.Logger
                 case LogLevel.Fatal:
                     _logger.Fatal(msg);
                     break;
-                default:
-                    break;
             }
         }
 

@@ -32,7 +32,7 @@ namespace Needle.Console
 			var hashedValue = 0f;
 			foreach (var t in read)
 			{
-				hashedValue += factor * t * t / (float)char.MaxValue;
+				hashedValue += factor * t * t / char.MaxValue;
 			}
 			return (hashedValue * read.Length);
 		}

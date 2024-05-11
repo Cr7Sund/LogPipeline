@@ -5,7 +5,6 @@ using Serilog.Events;
 using System.Net.Sockets;
 using System.Text;
 using Serilog.Core;
-using Serilog.Formatting.Display;
 
 namespace Cr7Sund.Logger
 {

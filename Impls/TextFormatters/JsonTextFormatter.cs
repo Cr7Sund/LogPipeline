@@ -2,7 +2,6 @@
 using Serilog.Events;
 using Serilog.Formatting;
 using System.IO;
-using System.Xml;
 using UnityEngine;
 
 

@@ -146,8 +146,7 @@ namespace Needle
 					continue;
 				}
 
-				var res = receiver?.OnHyperlinkClicked(path, line) ?? false;
-				if (res) break;
+				receiver.OnHyperlinkClicked(path, line);
 			}
 		}
 

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 namespace Cr7Sund.Logger
 {
     internal class ConsoleLogDecorator : ILogDecorator

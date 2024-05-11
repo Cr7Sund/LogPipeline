@@ -70,7 +70,7 @@ namespace Cr7Sund.Logger
 
         public void WriteException(LogLevel logLevel,  Exception e, string prefix)
         {
-            string format = $"{prefix} \n{e.ToString()}";
+            string format = $"{prefix} \n{e}";
             switch (logLevel)
             {
                 case LogLevel.Trace:

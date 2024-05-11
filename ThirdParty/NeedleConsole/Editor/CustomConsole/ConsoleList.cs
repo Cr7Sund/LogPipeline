@@ -87,7 +87,7 @@ namespace Needle.Console
 		private static DateTime lastClickTime;
 		private static GUIStyle logStyle, rightAlignedPrefixStyle;
 
-		private static bool HasFlag(int flags) => (LogEntries.consoleFlags & (int) flags) != 0;
+		private static bool HasFlag(int flags) => (LogEntries.consoleFlags & flags) != 0;
 		internal static bool HasMode(int mode, ConsoleWindow.Mode modeToCheck) => (uint) ((ConsoleWindow.Mode) mode & modeToCheck) > 0U;
 
 		private static ConsoleWindow _consoleWindow;

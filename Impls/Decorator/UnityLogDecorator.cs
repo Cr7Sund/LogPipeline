@@ -39,7 +39,8 @@ namespace Cr7Sund.Logger
             string result = LogFormatUtil.Format(format, args);
 
 #if UNITY_EDITOR
-            if (!UnityEditor.EditorApplication.isPlaying)
+            if (System.Threading.Thread.CurrentThread.ManagedThreadId == 1 &&
+                !UnityEditor.EditorApplication.isPlaying)
             {
                 return result;
             }
@@ -60,11 +61,11 @@ namespace Cr7Sund.Logger
         }
         private Color32 GetLocalColor(string key, Color32 defaultColor)
         {
-            #if UNITY_EDITOR
+#if UNITY_EDITOR
             string str = UnityEditor.EditorPrefs.GetString(key, string.Empty);
             if (!string.IsNullOrEmpty(str))
                 return JsonUtility.FromJson<Color32>(str);
-            #endif
+#endif
             return defaultColor;
         }
 
